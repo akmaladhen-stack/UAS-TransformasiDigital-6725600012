@@ -1,0 +1,42 @@
+# Instalasi Rclone
+sudo apt update
+sudo apt install rclone -y
+
+# Mengecek versi Rclone
+rclone version
+
+# Konfigurasi Google Drive
+rclone config
+
+# Mengecek remote yang berhasil dibuat
+rclone listremotes
+
+# Membuat folder dan file data uji
+mkdir ~/DataPenting
+echo "Data Mahasiswa Sistem Informasi" > ~/DataPenting/mahasiswa.txt
+echo "Nilai Semester Genap" > ~/DataPenting/nilai.txt
+
+# Melihat isi folder
+ls ~/DataPenting
+
+# Melihat isi file
+cat ~/DataPenting/mahasiswa.txt
+
+# Backup ke Google Drive
+rclone copy ~/DataPenting akmaldrive:backup-ubuntu
+
+# Melihat file yang ada di Google Drive
+rclone lsf akmaldrive:backup-ubuntu
+
+# Simulasi kehilangan data
+rm -rf ~/DataPenting
+
+# Mengecek bahwa data sudah hilang
+ls ~/DataPenting
+
+# Restore data dari Google Drive
+rclone copy akmaldrive:backup-ubuntu ~/DataPenting
+
+# Verifikasi hasil restore
+ls ~/DataPenting
+cat ~/DataPenting/mahasiswa.txt
